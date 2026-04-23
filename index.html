@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinTrackr — Track it. Budget it. Own it.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #00C136;
+      --green-dark: #1A5C2A;
+      --green-mid: #009929;
+      --green-light: #e6f9ec;
+      --green-glow: rgba(0, 193, 54, 0.12);
+      --black: #0a0f0d;
+      --off-white: #f5f9f6;
+      --gray: #6b7a70;
+      --gray-light: #e8ede9;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(10, 15, 13, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 193, 54, 0.1);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 32px;
+      filter: brightness(0) invert(1);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    .nav-cta {
+      background: var(--green) !important;
+      color: #000 !important;
+      padding: 0.5rem 1.2rem !important;
+      border-radius: 6px;
+      font-weight: 500 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--green-mid) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 5% 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 60%, rgba(0,193,54,0.13) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 20% 20%, rgba(0,193,54,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,193,54,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,193,54,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,193,54,0.12);
+      border: 1px solid rgba(0,193,54,0.3);
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      position: relative;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      position: relative;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 .accent { color: var(--green); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.55);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      font-weight: 300;
+      position: relative;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: #000;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.35); color: #fff; }
+
+    /* PHONE MOCKUP */
+    .hero-phone {
+      margin-top: 5rem;
+      position: relative;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+
+    .phone-frame {
+      width: 260px;
+      height: 520px;
+      background: #111a14;
+      border-radius: 40px;
+      border: 2px solid rgba(255,255,255,0.1);
+      padding: 16px;
+      margin: 0 auto;
+      position: relative;
+      box-shadow:
+        0 0 0 1px rgba(0,193,54,0.15),
+        0 40px 80px rgba(0,0,0,0.6),
+        0 0 60px rgba(0,193,54,0.08);
+    }
+
+    .phone-notch {
+      width: 80px; height: 24px;
+      background: #0a0f0d;
+      border-radius: 0 0 16px 16px;
+      margin: 0 auto 12px;
+    }
+
+    .phone-screen {
+      background: #0d1810;
+      border-radius: 28px;
+      height: calc(100% - 36px);
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .phone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .phone-greeting {
+      font-size: 10px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 2px;
+    }
+
+    .phone-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .phone-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .phone-balance-label {
+      font-size: 9px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .phone-balance {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .phone-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .phone-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    .pc-label { font-size: 8px; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+    .pc-value { font-size: 13px; font-weight: 500; }
+    .pc-value.income { color: var(--green); }
+    .pc-value.expense { color: #ff6b6b; }
+
+    .phone-section-label {
+      font-size: 9px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .phone-txn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .txn-icon {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: rgba(0,193,54,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .txn-info { flex: 1; }
+    .txn-name { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.85); }
+    .txn-date { font-size: 9px; color: rgba(255,255,255,0.35); }
+    .txn-amount { font-size: 11px; font-weight: 500; }
+    .txn-amount.neg { color: #ff6b6b; }
+    .txn-amount.pos { color: var(--green); }
+
+    .phone-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .bar-label { font-size: 8px; color: rgba(255,255,255,0.4); width: 40px; }
+    .bar-track { flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; }
+    .bar-fill { height: 100%; border-radius: 2px; background: var(--green); }
+    .bar-val { font-size: 8px; color: rgba(255,255,255,0.5); width: 24px; text-align: right; }
+
+    /* FEATURES */
+    .section {
+      padding: 7rem 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      max-width: 480px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(0,193,54,0.25);
+      background: rgba(0,193,54,0.04);
+    }
+
+    .feature-icon {
+      width: 44px; height: 44px;
+      background: rgba(0,193,54,0.12);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      margin-bottom: 1.25rem;
+    }
+
+    .feature-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: #fff;
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* WAITLIST */
+    .waitlist-section {
+      background: rgba(0,193,54,0.05);
+      border-top: 1px solid rgba(0,193,54,0.1);
+      border-bottom: 1px solid rgba(0,193,54,0.1);
+      padding: 7rem 5%;
+      text-align: center;
+    }
+
+    .waitlist-inner {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .waitlist-form {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .waitlist-input {
+      flex: 1;
+      min-width: 240px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 0.85rem 1.2rem;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .waitlist-input::placeholder { color: rgba(255,255,255,0.3); }
+    .waitlist-input:focus { border-color: rgba(0,193,54,0.5); }
+
+    .waitlist-note {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 1rem;
+    }
+
+    .success-msg {
+      display: none;
+      color: var(--green);
+      font-size: 0.95rem;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(0,193,54,0.1);
+      border: 1px solid rgba(0,193,54,0.2);
+      border-radius: 8px;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 5%;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-logo img {
+      height: 24px;
+      filter: brightness(0) invert(1);
+      opacity: 0.5;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+    .footer-copy {
+      color: rgba(255,255,255,0.2);
+      font-size: 0.8rem;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,193,54,0.15), transparent);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* STORE BADGES */
+    .store-badges {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 0.6rem 1.1rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .store-badge:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+
+    .store-badge svg { flex-shrink: 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="logo-1024x1024 (7).png" alt="FinTrackr" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#waitlist">Early Access</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+      <li><a href="#waitlist" class="nav-cta">Get Early Access</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Coming Soon to iOS &amp; Android
+    </div>
+
+    <h1>Track it.<br/><span class="accent">Budget it.</span><br/>Own it.</h1>
+
+    <p class="hero-sub">
+      FinTrackr connects to your bank accounts and gives you a clear, real-time picture of your finances — spending, savings, and everything in between.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#waitlist" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.8 3.6L14 5.4l-3 2.9.7 4.1L8 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8L8 1z" fill="currentColor"/></svg>
+        Get Early Access
+      </a>
+      <a href="#features" class="btn-secondary">See Features →</a>
+    </div>
+
+    <!-- PHONE MOCKUP -->
+    <div class="hero-phone">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-header">
+            <div>
+              <div class="phone-greeting">Good morning,</div>
+              <div class="phone-name">Carter 👋</div>
+            </div>
+            <div class="phone-avatar">C</div>
+          </div>
+
+          <div class="phone-balance-label">Net Worth</div>
+          <div class="phone-balance">$24,830</div>
+
+          <div class="phone-cards">
+            <div class="phone-card">
+              <div class="pc-label">Income</div>
+              <div class="pc-value income">+$4,200</div>
+            </div>
+            <div class="phone-card">
+              <div class="pc-label">Spent</div>
+              <div class="pc-value expense">-$1,640</div>
+            </div>
+          </div>
+
+          <div class="phone-section-label">Spending Breakdown</div>
+          <div class="phone-bar-row">
+            <div class="bar-label">Housing</div>
+            <div class="bar-track"><div class="bar-fill" style="width:70%"></div></div>
+            <div class="bar-val">$700</div>
+          </div>
+          <div class="phone-bar-row">
+            <div class="bar-label">Food</div>
+            <div class="bar-track"><div class="bar-fill" style="width:42%; background:#00a8c6;"></div></div>
+            <div class="bar-val">$420</div>
+          </div>
+          <div class="phone-bar-row">
+            <div class="bar-label">Transport</div>
+            <div class="bar-track"><div class="bar-fill" style="width:22%; background:#8b5cf6;"></div></div>
+            <div class="bar-val">$220</div>
+          </div>
+
+          <div class="phone-section-label" style="margin-top:12px;">Recent</div>
+          <div class="phone-txn">
+            <div class="txn-icon">🛒</div>
+            <div class="txn-info">
+              <div class="txn-name">Whole Foods</div>
+              <div class="txn-date">Today</div>
+            </div>
+            <div class="txn-amount neg">-$62</div>
+          </div>
+          <div class="phone-txn">
+            <div class="txn-icon" style="background:rgba(0,193,54,0.12)">💰</div>
+            <div class="txn-info">
+              <div class="txn-name">Paycheck</div>
+              <div class="txn-date">Yesterday</div>
+            </div>
+            <div class="txn-amount pos">+$2,100</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="store-badges">
+      <a href="#waitlist" class="store-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        App Store
+      </a>
+      <a href="#waitlist" class="store-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.35.2.74.24 1.12.12l12.14-6.97-2.61-2.61-10.65 9.46zM20.65 10.24L17.5 8.43l-2.95 2.68 2.95 2.68 3.17-1.82c.9-.52.9-1.73-.02-2.73zM2.06 1.15C2.02 1.3 2 1.46 2 1.63v20.74c0 .17.02.33.06.48L13.1 12 2.06 1.15zM4.3.12L16.44 7.09l-2.61 2.61L4.3.12z"/></svg>
+        Google Play
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="section-label">What's inside</div>
+    <h2 class="section-title">Everything you need to<br/>take control of your money.</h2>
+    <p class="section-sub">Built for real people, not spreadsheet nerds. FinTrackr makes personal finance feel effortless.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <div class="feature-title">Bank Sync via Plaid</div>
+        <p class="feature-desc">Connect all your accounts in seconds. Transactions sync automatically — no manual entry, ever.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Spending Insights</div>
+        <p class="feature-desc">See exactly where your money goes each month with smart category breakdowns and trends.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Custom Budgets</div>
+        <p class="feature-desc">Set budgets by category with custom timeframes. Weekly, monthly, or whatever works for you.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <div class="feature-title">Wealth Tracker</div>
+        <p class="feature-desc">Watch your net worth grow over time. Track assets and liabilities in one clean dashboard.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <div class="feature-title">Real-Time Alerts</div>
+        <p class="feature-desc">Get notified the moment a transaction hits. Stay on top of your money without checking constantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">Bank-Grade Security</div>
+        <p class="feature-desc">256-bit encryption, biometric auth, and read-only bank access. Your data stays yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WAITLIST -->
+  <section class="waitlist-section" id="waitlist">
+    <div class="waitlist-inner">
+      <div class="section-label" style="text-align:center;">Early Access</div>
+      <h2 class="section-title">Be first to know<br/>when we launch.</h2>
+      <p class="section-sub" style="margin: 1rem auto 0; text-align:center;">
+        Join the waitlist and get early access + a free month of FinTrackr Pro when we go live.
+      </p>
+
+      <div class="waitlist-form">
+        <input type="email" class="waitlist-input" placeholder="Enter your email address" id="email-input" />
+        <button class="btn-primary" onclick="handleWaitlist()">Join Waitlist</button>
+      </div>
+      <div class="success-msg" id="success-msg">
+        ✓ You're on the list! We'll be in touch soon.
+      </div>
+      <p class="waitlist-note">No spam. Unsubscribe anytime. We hate spam too.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="footer-logo">
+      <img src="logo-1024x1024 (7).png" alt="FinTrackr" />
+    </a>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="mailto:support@fintrackr.app">Support</a>
+    </div>
+    <div class="footer-copy">© 2026 FinTrackr. All rights reserved.</div>
+  </footer>
+
+  <script>
+    function handleWaitlist() {
+      const input = document.getElementById('email-input');
+      const msg = document.getElementById('success-msg');
+      const email = input.value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!valid) {
+        input.style.borderColor = 'rgba(255,80,80,0.5)';
+        input.focus();
+        return;
+      }
+      input.style.display = 'none';
+      document.querySelector('.waitlist-form button').style.display = 'none';
+      msg.style.display = 'block';
+    }
+
+    document.getElementById('email-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handleWaitlist();
+      this.style.borderColor = '';
+    });
+  </script>
+
+</body>
+</html>
