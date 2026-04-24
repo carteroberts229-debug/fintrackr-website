@@ -143,9 +143,12 @@
     .feature-title { font-size: 1.05rem; font-weight: 700; color: var(--black); margin-bottom: 0.5rem; }
     .feature-desc { font-size: 0.9rem; color: var(--gray); line-height: 1.65; }
 
+    /* STATS - light theme */
     .social-strip {
-      background: var(--gray-light); border-top: 1px solid rgba(0,0,0,0.06);
-      border-bottom: 1px solid rgba(0,0,0,0.06); padding: 3rem 5%; text-align: center;
+      background: var(--gray-light);
+      border-top: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 3rem 5%; text-align: center;
     }
     .social-strip p { font-size: 0.8rem; color: var(--gray); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; margin-bottom: 2rem; }
     .stats-row { display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; }
@@ -153,42 +156,44 @@
     .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--black); letter-spacing: -0.03em; line-height: 1; margin-bottom: 4px; }
     .stat-label { font-size: 0.85rem; color: var(--gray); }
 
+    /* WAITLIST - light theme */
     .waitlist-section {
-      padding: 7rem 5%; text-align: center; background: var(--black);
+      padding: 7rem 5%; text-align: center;
+      background: var(--green-light);
+      border-top: 1px solid var(--green-border);
       position: relative; overflow: hidden;
     }
-    .waitlist-section::before {
-      content: ""; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(ellipse, rgba(0,193,54,0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
     .waitlist-inner { max-width: 520px; margin: 0 auto; position: relative; }
-    .section-eyebrow {
+    .waitlist-eyebrow {
       display: inline-flex; align-items: center; gap: 6px;
-      background: var(--green-light); border: 1px solid var(--green-border); color: var(--green-dark);
+      background: white; border: 1px solid var(--green-border); color: var(--green-dark);
       font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
       padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 1.25rem;
     }
-    .waitlist-section .section-eyebrow { background: rgba(0,193,54,0.1); border-color: rgba(0,193,54,0.2); color: var(--green); }
-    .waitlist-section .section-title { color: white; }
-    .waitlist-section .section-sub { color: rgba(255,255,255,0.5); margin: 1rem auto 0; }
+    .waitlist-title {
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.025em; color: var(--black); margin-bottom: 1rem;
+    }
+    .waitlist-sub { font-size: 1rem; color: var(--gray); margin: 0 auto 0; line-height: 1.7; max-width: 400px; }
     .waitlist-form { display: flex; gap: 0.75rem; margin-top: 2.5rem; flex-wrap: wrap; justify-content: center; }
     .waitlist-input {
-      flex: 1; min-width: 240px; background: rgba(255,255,255,0.07);
-      border: 1.5px solid rgba(255,255,255,0.12); border-radius: 100px;
-      padding: 0.85rem 1.4rem; color: white;
+      flex: 1; min-width: 240px;
+      background: white;
+      border: 1.5px solid var(--green-border);
+      border-radius: 100px;
+      padding: 0.85rem 1.4rem; color: var(--black);
       font-family: "Plus Jakarta Sans", sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s;
     }
-    .waitlist-input::placeholder { color: rgba(255,255,255,0.3); }
-    .waitlist-input:focus { border-color: rgba(0,193,54,0.5); }
-    .waitlist-note { font-size: 0.78rem; color: rgba(255,255,255,0.3); margin-top: 1rem; }
+    .waitlist-input::placeholder { color: var(--gray); }
+    .waitlist-input:focus { border-color: var(--green); }
+    .waitlist-note { font-size: 0.78rem; color: var(--gray); margin-top: 1rem; }
     .success-msg {
-      display: none; color: var(--green); font-size: 0.95rem; margin-top: 1.5rem;
-      padding: 0.75rem 1.5rem; background: rgba(0,193,54,0.1);
-      border: 1px solid rgba(0,193,54,0.2); border-radius: 100px;
+      display: none; color: var(--green-dark); font-size: 0.95rem; margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem; background: white;
+      border: 1px solid var(--green-border); border-radius: 100px;
     }
 
+    /* FOOTER - light */
     footer {
       padding: 2.5rem 5%; border-top: 1px solid rgba(0,0,0,0.07);
       display: flex; align-items: center; justify-content: space-between;
@@ -270,13 +275,13 @@
 
   <section class="waitlist-section" id="waitlist">
     <div class="waitlist-inner">
-      <div class="section-eyebrow">Early Access</div>
-      <h2 class="section-title">Be first to know<br/>when we launch.</h2>
-      <p class="section-sub" style="color:rgba(255,255,255,0.5);margin:1rem auto 0;">Drop your email and we'll let you know the moment FinTrackr is live.</p>
-      <div class="waitlist-form">
-        <input type="email" class="waitlist-input" placeholder="Enter your email address" id="email-input" />
-        <button class="btn-primary" onclick="handleWaitlist()">Join Waitlist</button>
-      </div>
+      <div class="waitlist-eyebrow">Early Access</div>
+      <h2 class="waitlist-title">Be first to know<br/>when we launch.</h2>
+      <p class="waitlist-sub">Drop your email and we'll let you know the moment FinTrackr is live.</p>
+      <form class="waitlist-form" action="https://formspree.io/f/mkokkyno" method="POST">
+        <input type="email" name="email" class="waitlist-input" placeholder="Enter your email address" id="email-input" required />
+        <button type="submit" class="btn-primary">Join Waitlist</button>
+      </form>
       <div class="success-msg" id="success-msg">&#10003; You're on the list! We'll reach out soon.</div>
       <p class="waitlist-note">No spam. Unsubscribe anytime.</p>
     </div>
@@ -289,27 +294,10 @@
     <div class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Service</a>
-      <a href="mailto:support@fintrackr.app">Support</a>
+      <a href="mailto:fintrack23@gmail.com">Support</a>
     </div>
     <div class="footer-copy">&copy; 2026 FinTrackr. All rights reserved.</div>
   </footer>
 
-  <script>
-    function handleWaitlist() {
-      const input = document.getElementById('email-input');
-      const msg = document.getElementById('success-msg');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim())) {
-        input.style.borderColor = 'rgba(255,80,80,0.5)';
-        input.focus(); return;
-      }
-      input.style.display = 'none';
-      document.querySelector('.waitlist-form button').style.display = 'none';
-      msg.style.display = 'block';
-    }
-    document.getElementById('email-input').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') handleWaitlist();
-      this.style.borderColor = '';
-    });
-  </script>
 </body>
 </html>
