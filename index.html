@@ -279,11 +279,12 @@
       <h2 class="waitlist-title">Be first to know<br/>when we launch.</h2>
       <p class="waitlist-sub" style="margin-top:0.75rem;font-weight:600;color:var(--green);">Join the waitlist — lock in $6.99/month for your first 2 months.</p>
       <p class="waitlist-sub">Drop your email and we'll let you know the moment FinSavr is live.</p>
-      <form class="waitlist-form" action="https://formspree.io/f/mkokkyno" method="POST">
+      <form class="waitlist-form" id="waitlist-form">
         <input type="email" name="email" class="waitlist-input" placeholder="Enter your email address" id="email-input" required />
-        <button type="submit" class="btn-primary">Join Waitlist</button>
+        <button type="submit" class="btn-primary" id="waitlist-btn">Join Waitlist</button>
       </form>
       <div class="success-msg" id="success-msg">&#10003; You're on the list! We'll reach out soon.</div>
+      <p id="waitlist-status" class="waitlist-note" style="display:none;font-weight:600;"></p>
       <p class="waitlist-note">No spam. Unsubscribe anytime.</p>
     </div>
   </section>
@@ -300,5 +301,45 @@
     <div class="footer-copy">&copy; 2026 FinSavr. All rights reserved.</div>
   </footer>
 
+  <script>
+    document.getElementById('waitlist-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const email = document.getElementById('email-input').value;
+      const btn = document.getElementById('waitlist-btn');
+      const status = document.getElementById('waitlist-status');
+
+      btn.disabled = true;
+      btn.textContent = 'Joining…';
+      status.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          document.getElementById('waitlist-form').style.display = 'none';
+          status.textContent = "You're on the list! We'll be in touch soon.";
+          status.style.color = 'var(--green)';
+          status.style.display = 'block';
+        } else {
+          status.textContent = data.error || 'Something went wrong. Please try again.';
+          status.style.color = '#ef4444';
+          status.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Join Waitlist';
+        }
+      } catch (_) {
+        status.textContent = 'Something went wrong. Please try again.';
+        status.style.color = '#ef4444';
+        status.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Join Waitlist';
+      }
+    });
+  </script>
 </body>
 </html>
