@@ -19,23 +19,11 @@ export default async function handler(req, res) {
     'Accept': 'application/json',
   };
 
-  // Find the "FinSavr Waitlist" list ID
-  const listsRes = await fetch('https://api.brevo.com/v3/contacts/lists?limit=50&offset=0', { headers });
-  if (!listsRes.ok) {
-    return res.status(502).json({ error: 'Failed to reach Brevo' });
-  }
-
-  const { lists } = await listsRes.json();
-  const list = lists?.find(l => l.name === 'FinSavr Waitlist');
-  if (!list) {
-    return res.status(500).json({ error: 'FinSavr Waitlist not found in Brevo' });
-  }
-
-  // Create or update contact and add to list
+  // Create or update contact and add to FinSavr Waitlist (Brevo list ID 5)
   const contactRes = await fetch('https://api.brevo.com/v3/contacts', {
     method: 'POST',
     headers,
-    body: JSON.stringify({ email, listIds: [list.id], updateEnabled: true }),
+    body: JSON.stringify({ email, listIds: [5], updateEnabled: true }),
   });
 
   // 201 = created, 204 = already existed and updated — both are success
