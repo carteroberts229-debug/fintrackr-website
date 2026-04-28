@@ -277,7 +277,7 @@
     <div class="waitlist-inner">
       <div class="waitlist-eyebrow">Waitlist</div>
       <h2 class="waitlist-title">Be first to know<br/>when we launch.</h2>
-      <p class="waitlist-sub">Drop your email and we'll let you know the moment FinSavr is live.</p>
+      <p class="waitlist-sub" id="waitlist-sub">Drop your email and we'll let you know the moment FinSavr is live.</p>
       <form class="waitlist-form" id="waitlist-form">
         <input type="email" name="email" class="waitlist-input" placeholder="Enter your email address" id="email-input" required />
         <button type="submit" class="btn-primary" id="waitlist-btn">Join Waitlist</button>
@@ -321,6 +321,7 @@
 
         if (res.ok) {
           document.getElementById('waitlist-form').style.display = 'none';
+          document.getElementById('waitlist-sub').textContent = "P.S. Your email may take up to a minute to arrive. If you don't see it, check your spam folder!";
           status.textContent = "You're on the list! We'll be in touch soon.";
           status.style.color = 'var(--green)';
           status.style.display = 'block';
