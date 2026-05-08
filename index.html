@@ -212,6 +212,50 @@
     .footer-links a:hover { color: var(--black); }
     .footer-copy { color: #aaa; font-size: 0.8rem; }
 
+    /* FAQ */
+    .faq-section { padding: 7rem 5%; max-width: 780px; margin: 0 auto; }
+    .faq-eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green-light); border: 1px solid var(--green-border); color: var(--green-dark);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 1.25rem;
+    }
+    .faq-title {
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.025em; color: var(--black); margin-bottom: 0.75rem;
+    }
+    .faq-intro { font-size: 1rem; color: var(--gray); line-height: 1.7; margin-bottom: 3rem; }
+    .faq-group { margin-bottom: 2.5rem; }
+    .faq-group-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--green-dark); margin-bottom: 1rem; padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--green-border);
+    }
+    .faq-item {
+      border: 1px solid rgba(0,0,0,0.07); border-radius: 12px; margin-bottom: 0.75rem;
+      overflow: hidden; transition: box-shadow 0.2s;
+    }
+    .faq-item:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .faq-question {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 1.25rem; text-align: left; gap: 1rem;
+      font-family: "Plus Jakarta Sans", sans-serif;
+    }
+    .faq-question span { font-size: 0.95rem; font-weight: 600; color: var(--black); line-height: 1.4; }
+    .faq-icon {
+      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--gray-light); display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.25s;
+    }
+    .faq-icon svg { width: 12px; height: 12px; stroke: var(--gray); transition: stroke 0.2s; }
+    .faq-item.open .faq-icon { background: var(--green-light); transform: rotate(45deg); }
+    .faq-item.open .faq-icon svg { stroke: var(--green-dark); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 1.25rem; }
+    .faq-answer p { font-size: 0.9rem; color: var(--gray-dark); line-height: 1.75; padding-bottom: 1.1rem; }
+    .faq-answer a { color: var(--green-dark); text-decoration: underline; }
+    .faq-item.open .faq-answer { max-height: 300px; }
+
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 640px) {
       .nav-links { display: none; }
@@ -230,6 +274,7 @@
       <li><a href="#waitlist">Waitlist</a></li>
       <li><a href="privacy.html">Privacy</a></li>
       <li><a href="terms.html">Terms</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#waitlist" class="nav-cta">Join Waitlist</a></li>
     </ul>
   </nav>
@@ -319,6 +364,66 @@
     </div>
   </section>
 
+  <section class="faq-section" id="faq">
+    <div class="faq-eyebrow">Help &amp; FAQ</div>
+    <h2 class="faq-title">Got questions?</h2>
+    <p class="faq-intro">Everything you need to know about FinSavr. Still stuck? Email us at <a href="mailto:fintrack23@gmail.com" style="color:var(--green-dark);">fintrack23@gmail.com</a>.</p>
+
+    <div class="faq-group">
+      <div class="faq-group-label">General</div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>What is FinSavr?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </button>
+        <div class="faq-answer"><p>A personal finance app that connects to your bank accounts to track spending, manage budgets, and give AI-powered financial insights.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Is my data secure?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </button>
+        <div class="faq-answer"><p>Yes. FinSavr uses bank-level encryption and never stores your banking credentials.</p></div>
+      </div>
+    </div>
+
+    <div class="faq-group">
+      <div class="faq-group-label">Subscription</div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How does the free trial work?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </button>
+        <div class="faq-answer"><p>You get 7 days free with full Pro access. Cancel anytime before the trial ends and you won't be charged.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How do I cancel my subscription?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </button>
+        <div class="faq-answer"><p>You can cancel anytime through your iPhone's Settings &gt; Apple ID &gt; Subscriptions.</p></div>
+      </div>
+    </div>
+
+    <div class="faq-group">
+      <div class="faq-group-label">Troubleshooting</div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>My bank won't connect. What do I do?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </button>
+        <div class="faq-answer"><p>Try disconnecting and reconnecting your institution. If the issue persists, email us at <a href="mailto:fintrack23@gmail.com">fintrack23@gmail.com</a>.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How do I report a bug?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+        </button>
+        <div class="faq-answer"><p>Email us at <a href="mailto:fintrack23@gmail.com">fintrack23@gmail.com</a> and we'll get back to you as soon as possible.</p></div>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <a href="#" class="footer-logo">
       <img src="finsavr-logo.png" alt="FinSavr">
@@ -332,6 +437,21 @@
   </footer>
 
   <script>
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => {
+          el.classList.remove('open');
+          el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
     document.getElementById('waitlist-form').addEventListener('submit', async function (e) {
       e.preventDefault();
       const email = document.getElementById('email-input').value;
