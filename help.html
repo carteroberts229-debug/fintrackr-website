@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help &amp; FAQ — FinSavr</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #00C136; --green-dark: #1A5C2A; --green-light: #f0faf3;
+      --green-border: #d0f0da; --black: #0e1a12; --gray: #6b7a6e;
+      --gray-light: #f4f7f5; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.85rem 5%; background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px); border-bottom: 1px solid rgba(0,0,0,0.06); overflow: visible;
+    }
+    .nav-logo img { height: 48px; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-cta { background: var(--black) !important; color: var(--white) !important; padding: 0.55rem 1.3rem !important; border-radius: 100px !important; font-weight: 600 !important; font-size: 0.85rem !important; }
+    .nav-cta:hover { background: var(--green-dark) !important; }
+    .doc-wrap { max-width: 780px; margin: 0 auto; padding: 8rem 5% 5rem; }
+    .doc-eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green-light); border: 1px solid var(--green-border); color: var(--green-dark);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 1.25rem;
+    }
+    .doc-title { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+    .doc-subtitle { font-size: 0.95rem; color: var(--gray); margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(0,0,0,0.07); line-height: 1.6; }
+    .faq-section { margin-bottom: 3rem; }
+    .faq-section-title {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--green-dark); margin-bottom: 1rem; padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--green-border);
+    }
+    .faq-item {
+      border: 1px solid rgba(0,0,0,0.07); border-radius: 12px; margin-bottom: 0.75rem;
+      overflow: hidden; transition: box-shadow 0.2s;
+    }
+    .faq-item:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .faq-question {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 1.25rem; text-align: left; gap: 1rem;
+      font-family: "Plus Jakarta Sans", sans-serif;
+    }
+    .faq-question span {
+      font-size: 0.95rem; font-weight: 600; color: var(--black); line-height: 1.4;
+    }
+    .faq-icon {
+      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--gray-light); display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.25s;
+    }
+    .faq-icon svg { width: 12px; height: 12px; stroke: var(--gray); transition: stroke 0.2s; }
+    .faq-item.open .faq-icon { background: var(--green-light); transform: rotate(45deg); }
+    .faq-item.open .faq-icon svg { stroke: var(--green-dark); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 1.25rem;
+    }
+    .faq-answer p {
+      font-size: 0.9rem; color: #374040; line-height: 1.75;
+      padding-bottom: 1.1rem;
+    }
+    .faq-answer a { color: var(--green-dark); text-decoration: underline; }
+    .faq-item.open .faq-answer { max-height: 300px; }
+    footer {
+      padding: 2.5rem 5%; border-top: 1px solid rgba(0,0,0,0.07);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem; max-width: 1200px; margin: 0 auto;
+    }
+    .footer-logo img { width: 180px; height: auto; display: block; }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--gray); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--black); }
+    .footer-copy { color: #aaa; font-size: 0.8rem; }
+    @media (max-width: 640px) { .nav-links { display: none; } footer { flex-direction: column; align-items: flex-start; } .doc-title { font-size: 1.9rem; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="finsavr-logo.png" alt="FinSavr">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#waitlist">Waitlist</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+      <li><a href="index.html#waitlist" class="nav-cta">Join Waitlist</a></li>
+    </ul>
+  </nav>
+
+  <div class="doc-wrap">
+    <div class="doc-eyebrow">Support</div>
+    <h1 class="doc-title">Help &amp; FAQ</h1>
+    <p class="doc-subtitle">Everything you need to know about FinSavr. Can't find your answer? Email us at <a href="mailto:fintrack23@gmail.com" style="color:var(--green-dark);">fintrack23@gmail.com</a>.</p>
+
+    <div class="faq-section">
+      <div class="faq-section-title">General</div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>What is FinSavr?</span>
+          <div class="faq-icon">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer"><p>A personal finance app that connects to your bank accounts to track spending, manage budgets, and give AI-powered financial insights.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Is my data secure?</span>
+          <div class="faq-icon">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer"><p>Yes. FinSavr uses bank-level encryption and never stores your banking credentials.</p></div>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <div class="faq-section-title">Subscription</div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How does the free trial work?</span>
+          <div class="faq-icon">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer"><p>You get 7 days free with full Pro access. Cancel anytime before the trial ends and you won't be charged.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How do I cancel my subscription?</span>
+          <div class="faq-icon">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer"><p>You can cancel anytime through your iPhone's Settings &gt; Apple ID &gt; Subscriptions.</p></div>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <div class="faq-section-title">Troubleshooting</div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>My bank won't connect. What do I do?</span>
+          <div class="faq-icon">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer"><p>Try disconnecting and reconnecting your institution. If the issue persists, email us at <a href="mailto:fintrack23@gmail.com">fintrack23@gmail.com</a>.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How do I report a bug?</span>
+          <div class="faq-icon">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer"><p>Email us at <a href="mailto:fintrack23@gmail.com">fintrack23@gmail.com</a> and we'll get back to you as soon as possible.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a href="index.html" class="footer-logo">
+      <img src="finsavr-logo.png" alt="FinSavr">
+    </a>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="help.html">Help &amp; FAQ</a>
+      <a href="mailto:fintrack23@gmail.com">Support</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 FinSavr. All rights reserved.</div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => {
+          el.classList.remove('open');
+          el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
